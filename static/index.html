@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <title>맞춤 버스 트래커</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" href="/bus-icon.svg">
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- Home Tab -->
+        <main id="tab-home" class="tab-content active">
+            <header class="app-header">
+                <h1>🚏 내 버스 정류장</h1>
+                <p>자주 가는 정류장과 지정한 버스</p>
+            </header>
+            <div class="content-area">
+                <div id="favoritesList" class="saved-list">
+                    <div class="empty-state">
+                        <p>등록된 정류장이 없습니다.</p>
+                        <p>설정 탭에서 추가해주세요!</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Settings Tab -->
+        <main id="tab-settings" class="tab-content hidden">
+            <header class="app-header">
+                <h1>⚙️ 설정 (정류장 추가)</h1>
+                <p>정류장을 검색하고 버스 번호를 필터링하세요</p>
+            </header>
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="정류장 이름 (예: 서면역)" autocomplete="off">
+                    <button id="searchBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="content-area">
+                <div id="searchResults" class="results-list"></div>
+            </div>
+        </main>
+
+        <!-- Arrival Modal / Detail View -->
+        <div id="arrivalModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="board-header">
+                    <button id="closeModalBtn" class="back-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                    </button>
+                    <div class="header-text">
+                        <h2 id="modalStopName">정류장 이름</h2>
+                        <p id="modalStopFilters">필터링 중...</p>
+                    </div>
+                </div>
+                <div id="arrivalList" class="arrival-list"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-tab="home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>홈</span>
+            </button>
+            <button class="nav-item" data-tab="settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+                <span>설정</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+
+</html>
