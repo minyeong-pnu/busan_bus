@@ -171,7 +171,7 @@ async function fetchArrivals() {
 
   // Parse user requested lines into an array
   const wantedLines = filterStr
-    ? filterStr.split(',').map(s => s.trim().replace(/[^a-zA-Z0-9가-힣]/g, '')).filter(Boolean)
+    ? filterStr.split(',').map(s => s.trim().replace(/[^a-zA-Z0-9가-힣-]/g, '')).filter(Boolean)
     : [];
 
   try {
@@ -184,8 +184,8 @@ async function fetchArrivals() {
       // Filter logic
       if (wantedLines.length > 0) {
         items = items.filter(arr => {
-          const arrLine = (arr.lineno || '').replace(/[^a-zA-Z0-9가-힣]/g, '');
-          return wantedLines.some(wl => arrLine.includes(wl) || wl.includes(arrLine));
+          const arrLine = (arr.lineno || '').replace(/[^a-zA-Z0-9가-힣-]/g, '');
+          return wantedLines.includes(arrLine);
         });
       }
 
